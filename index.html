@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Noveltie Arcade</title>
+<link rel="manifest" href="manifest.json" />
+<link rel="apple-touch-icon" href="lobby-assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0b3d2e">
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:#0b3d2e;color:#f5f0e1;font-family:system-ui,-apple-system,sans-serif;display:flex;flex-direction:column;align-items:center;padding:32px 20px}
+header{text-align:center;margin-bottom:28px}
+h1{margin:0 0 6px;font-size:30px;letter-spacing:.5px;color:#f5c542}
+header p{margin:0;opacity:.75;font-size:15px}
+.games{display:flex;flex-direction:column;gap:14px;width:100%;max-width:420px}
+.game{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.06);border:1px solid rgba(245,197,66,.25);border-radius:14px;padding:14px 16px;text-decoration:none;color:inherit}
+.game img{width:56px;height:56px;border-radius:12px;flex:none}
+.game .t{flex:1}
+.game .t b{display:block;font-size:17px;color:#fff}
+.game .t span{font-size:13px;opacity:.7}
+.game .go{font-size:22px;color:#f5c542}
+#installBtn{margin-top:26px;background:#f5c542;color:#3a2a00;font-weight:700;border:none;padding:14px 28px;border-radius:14px;font-size:16px;cursor:pointer}
+#installBtn[hidden]{display:none}
+footer{margin-top:auto;padding-top:32px;font-size:12px;opacity:.5}
+</style>
+</head>
+<body>
+<header>
+<h1>Noveltie Arcade</h1>
+<p>A personal arcade of word &amp; puzzle games.</p>
+</header>
+<div class="games">
+<a class="game" href="https://games.noveltie.com/solitaire-word-match/">
+<img src="https://games.noveltie.com/solitaire-word-match/assets/icon-192.png" alt="">
+<span class="t"><b>Solitaire Word Match</b><span>Word-association solitaire &middot; 30 levels</span></span>
+<span class="go">&#9654;</span>
+</a>
+</div>
+<button id="installBtn" hidden>Install Arcade app</button>
+<footer>Install games first, then the arcade, for separate home-screen icons.</footer>
+<script>
+(function(){
+  var btn=document.getElementById('installBtn'), deferred=null;
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;btn.hidden=false;});
+  btn.addEventListener('click',function(){if(!deferred)return;deferred.prompt();deferred.userChoice.then(function(){deferred=null;btn.hidden=true;});});
+  window.addEventListener('appinstalled',function(){deferred=null;btn.hidden=true;});
+})();
+</script>
+</body>
+</html>
